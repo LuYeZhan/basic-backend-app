@@ -6,7 +6,7 @@ const createError = require('http-errors');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-const User = require('../models/user');
+const User = require('../models/User');
 
 const {
   isLoggedIn,
@@ -14,6 +14,7 @@ const {
   validationLoggin
 } = require('../helpers/middlewares');
 
+// en caso de que haya current user, lo envio
 router.get('/me', isLoggedIn(), (req, res, next) => {
   res.json(req.session.currentUser);
 });
@@ -55,6 +56,7 @@ router.post(
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
         const newUser = await User.create({ username, password: hashPass });
+        // este de codigo de abajo es para loggear cuando haces sign up
         req.session.currentUser = newUser;
         res.status(200).json(newUser);
       }
@@ -65,6 +67,7 @@ router.post(
 );
 
 router.post('/logout', isLoggedIn(), (req, res, next) => {
+  // es lo mismo que delete req.currentSession
   req.session.destroy();
   return res.status(204).send();
 });
