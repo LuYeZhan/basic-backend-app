@@ -46,7 +46,7 @@ router.post(
   isNotLoggedIn(),
   validationLoggin(),
   async (req, res, next) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     try {
       const user = await User.findOne({ username }, 'username');
@@ -55,7 +55,7 @@ router.post(
       } else {
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({ username, password: hashPass });
+        const newUser = await User.create({ username, password: hashPass, email });
         // este de codigo de abajo es para loggear cuando haces sign up
         req.session.currentUser = newUser;
         res.status(200).json(newUser);
