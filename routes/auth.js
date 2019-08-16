@@ -66,19 +66,27 @@ router.post(
   }
 );
 
-router.put('/profile/update', async (req, res, next) => {
-  // update user
-  const id = req.session.currentUser._id;
-  const user = req.body;
-  try {
-    const updated = await User.findByIdAndUpdate(id, user, { new: true });
-    req.session.currentUser = updated;
-    console.log(updated);
-    res.status(200).json(updated);
-  } catch (error) {
-    next(error);
-  }
-})
+router.put(
+  '/profile/update',
+  isLoggedIn(),
+  validationLoggin(),
+  async (req, res, next) => {
+    const { password } = req.body;
+    const id = req.session.currentUser._id;
+    const user = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const hashPass = bcrypt.hashSync(password, salt);
+    const updatedUser = { ...user, password: hashPass };
+    try {
+      const updated = await User.findByIdAndUpdate(id, updatedUser, { new: true });
+
+      req.session.currentUser = updated;
+      console.log(updated);
+      res.status(200).json(updated);
+    } catch (error) {
+      next(error);
+    }
+  })
 ;
 
 router.post('/logout', isLoggedIn(), (req, res, next) => {
