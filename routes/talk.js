@@ -10,10 +10,10 @@ const {
 
 router.post(
   '/create',
-  isLoggedIn(),
+//   isLoggedIn(),
   async (req, res, next) => {
     const { title, audio, tags } = req.body;
-    const userId = req.session.currentUser._id;
+    const userId = req.session.currentUser;
     try {
       const newTalk = await Talk.create({
         title,
