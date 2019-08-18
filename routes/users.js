@@ -18,7 +18,7 @@ router.get('/profile', isLoggedIn(), async (req, res, next) => {
   }
 });
 
-router.get('/home', isLoggedIn(), async (req, res, next) => {
+router.get('/', isLoggedIn(), async (req, res, next) => {
   try {
     const talk = await Talk.find({});
     res.status(200).json(talk);

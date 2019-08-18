@@ -14,6 +14,7 @@ router.post(
   async (req, res, next) => {
     const { title, audio, tags } = req.body;
     const userId = req.session.currentUser;
+    console.log(userId);
     try {
       const newTalk = await Talk.create({
         title,
@@ -21,7 +22,6 @@ router.post(
         tags,
         creator: userId
       });
-
       const talkId = newTalk._id;
       await User.findByIdAndUpdate(userId, { $push: { talks:
       talkId } });
