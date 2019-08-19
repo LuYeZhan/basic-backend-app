@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/user');
-const Talk = require('../models/Talk');
+const Talk = require('../models/talk');
 
 const {
   isLoggedIn
@@ -12,13 +12,14 @@ router.post(
   '/create',
 //   isLoggedIn(),
   async (req, res, next) => {
-    const { title, audio, tags } = req.body;
+    const { title, soundURL, tags } = req.body;
+    console.log(req.session.currentUser);
     const userId = req.session.currentUser;
-    console.log(userId);
+    console.log(userId, 'algo');
     try {
       const newTalk = await Talk.create({
         title,
-        audio,
+        soundURL,
         tags,
         creator: userId
       });

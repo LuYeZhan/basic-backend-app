@@ -7,7 +7,7 @@ const talkSchema = new Schema({
     type: String,
     required: true
   },
-  audio: {
+  soundURL: {
     type: String
   },
   creator: {
