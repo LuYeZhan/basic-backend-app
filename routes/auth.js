@@ -58,6 +58,7 @@ router.post(
         const newUser = await User.create({ username, password: hashPass, email });
         // este de codigo de abajo es para loggear cuando haces sign up
         req.session.currentUser = newUser;
+        console.log(req.session);
         res.status(200).json(newUser);
       }
     } catch (error) {

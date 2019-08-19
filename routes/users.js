@@ -1,18 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/user');
 const Talk = require('../models/talk');
 
-const {
-  isLoggedIn
-} = require('../helpers/middlewares');
+// const {
+//   isLoggedIn
+// } = require('../helpers/middlewares');
 
-router.get('/profile', isLoggedIn(), async (req, res, next) => {
+router.get('/profile', async (req, res, next) => {
   try {
-    const userId = req.session.currentUser._id;
-    const user = await User.findById(userId).populate('talks');
-    res.status(200).json(user);
+    const userId = req.session.currentUser;
+    const talk = await Talk.find({ creator: userId });
+    res.status(200).json(talk);
   } catch (error) {
     next(error);
   }
