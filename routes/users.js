@@ -17,6 +17,7 @@ router.get('/profile', async (req, res, next) => {
   }
 });
 
+
 router.get('/', async (req, res, next) => {
   try {
     const talk = await Talk.find({});

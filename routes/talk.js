@@ -46,4 +46,16 @@ router.put(
     }
   });
 
+router.delete('/delete/:id', async (req, res, next) => {
+  try {
+    const userId = req.session.currentUser;
+    const { id } = req.params;
+    await User.findByIdAndUpdate(userId, { $pull: { talks: id } }, { new: true });
+    await Talk.findByIdAndDelete(id);
+    res.status(200).json({ message: 'eliminado' });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
