@@ -31,7 +31,18 @@ router.post(
     }
   });
 
-// same route? I want to render in the same page
+router.get(
+  '/:id',
+  async (req, res, next) => {
+    const talkId = req.params.id;
+    try {
+      const talk = await Talk.findOne({ _id: talkId });
+      res.status(200).json(talk);
+    } catch (error) {
+      next(error);
+    }
+  });
+
 router.put(
   '/update/:id',
   isLoggedIn(),

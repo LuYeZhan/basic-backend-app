@@ -11,6 +11,7 @@ router.get('/profile', async (req, res, next) => {
   try {
     const userId = req.session.currentUser;
     const talk = await Talk.find({ creator: userId });
+    talk.reverse();
     res.status(200).json(talk);
   } catch (error) {
     next(error);
@@ -19,7 +20,9 @@ router.get('/profile', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const talk = await Talk.find({});
+    const talk = await Talk.find();
+    talk.reverse();
+    console.log(talk)
     res.status(200).json(talk);
   } catch (error) {
     next(error);
