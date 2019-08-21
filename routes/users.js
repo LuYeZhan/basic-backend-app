@@ -1,11 +1,8 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
-
 const Talk = require('../models/talk');
-
-// const {
-//   isLoggedIn
-// } = require('../helpers/middlewares');
 
 router.get('/profile', async (req, res, next) => {
   try {
@@ -22,7 +19,6 @@ router.get('/', async (req, res, next) => {
   try {
     const talk = await Talk.find();
     talk.reverse();
-    console.log(talk)
     res.status(200).json(talk);
   } catch (error) {
     next(error);

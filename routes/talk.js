@@ -1,6 +1,7 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
-
 const User = require('../models/user');
 const Talk = require('../models/talk');
 
@@ -13,7 +14,6 @@ router.post(
   isLoggedIn(),
   async (req, res, next) => {
     const { title, soundURL, tags } = req.body;
-    console.log(req.session, 'algo');
     const userId = req.session.currentUser;
     try {
       const newTalk = await Talk.create({

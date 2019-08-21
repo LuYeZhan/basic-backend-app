@@ -2,10 +2,8 @@
 
 const express = require('express');
 const createError = require('http-errors');
-
 const router = express.Router();
 const bcrypt = require('bcrypt');
-
 const User = require('../models/user');
 
 const {
@@ -14,7 +12,6 @@ const {
   validationLoggin
 } = require('../helpers/middlewares');
 
-// en caso de que haya current user, lo envio
 router.get('/me', isLoggedIn(), (req, res, next) => {
   res.json(req.session.currentUser);
 });
@@ -56,7 +53,6 @@ router.post(
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
         const newUser = await User.create({ username, password: hashPass, email });
-        // este de codigo de abajo es para loggear cuando haces sign up
         req.session.currentUser = newUser;
         console.log(req.session);
         res.status(200).json(newUser);
@@ -81,7 +77,6 @@ router.put(
     try {
       const updated = await User.findByIdAndUpdate(id, updatedUser, { new: true });
       req.session.currentUser = updated;
-      console.log(updated);
       res.status(200).json(updated);
     } catch (error) {
       next(error);
@@ -90,7 +85,6 @@ router.put(
 ;
 
 router.post('/logout', isLoggedIn(), (req, res, next) => {
-  // es lo mismo que delete req.currentSession
   req.session.destroy();
   return res.status(204).send();
 });
