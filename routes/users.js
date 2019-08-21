@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Talk = require('../models/talk');
+const Talk = require('../models/Talk');
 
 // const {
 //   isLoggedIn
@@ -16,7 +16,6 @@ router.get('/profile', async (req, res, next) => {
     next(error);
   }
 });
-
 
 router.get('/', async (req, res, next) => {
   try {

@@ -80,7 +80,6 @@ router.put(
     const updatedUser = { ...user, password: hashPass };
     try {
       const updated = await User.findByIdAndUpdate(id, updatedUser, { new: true });
-
       req.session.currentUser = updated;
       console.log(updated);
       res.status(200).json(updated);
