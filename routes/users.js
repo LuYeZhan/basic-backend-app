@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Talk = require('../models/Talk');
+const Talk = require('../models/talk');
 
 // const {
 //   isLoggedIn
