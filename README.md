@@ -160,14 +160,14 @@ picture of your physical board
 
 The url to your repository and to your deployed project
 
-[Client repository Link](https://github.com/screeeen/project-client)
+[Client repository Link](https://github.com/LuYeZhan/basic-frontend-app)
 
-[Server repository Link](https://github.com/screeeen/project-server)
+[Server repository Link](https://github.com/LuYeZhan/basic-backend-app)
 
-[Deployed App Link](http://heroku.com)
+[Deployed App Link](https://listenandtalk-a3074.firebaseapp.com)
 
 ### Slides
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+[Slides Link](https://docs.google.com/presentation/d/1-jZRD2cB-sVN1BdUfTBA6qSkRpptH8-yLYeM0XPo4aA/edit?usp=sharing)
